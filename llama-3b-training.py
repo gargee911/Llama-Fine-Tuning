@@ -1,6 +1,6 @@
 
 from huggingface_hub import login
-login(token="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")
+login(token="hf_login_token")
 
 import pandas as pd
 data=pd.read_csv('./content/content-json.csv')
@@ -54,7 +54,7 @@ model = get_peft_model(model, peft_config)
 model.print_trainable_parameters()
 
 import wandb
-wandb.login(key="02c2e65e7a2af9212b6e9f36784011c9617caed8")
+wandb.login(key="your_login_key")
 
 data
 
@@ -88,15 +88,15 @@ trainer = SFTTrainer(
 
 trainer.train()
 
-new_model="cartesian-alpha-gargee-llama3b"
+new_model="gargee-llama3b"
 trainer.save_model(new_model)
 
 hf_name = 'gargeekate123'
-model_id = hf_name + "/" + "cartesian-alpha-gargee-llama3b"
+model_id = hf_name + "/" + "gargee-llama3b"
 from huggingface_hub import HfApi
 
 api = HfApi()
-model_repo_name = "llama1CartesianAlphaDanube"  # Format of Input  <Profile Name > / <Model Repo Name>
+model_repo_name = "llama3bGargee"  # Format of Input  <Profile Name > / <Model Repo Name>
 
 #Create Repo in Hugging Face
 api.create_repo(repo_id=model_repo_name)
@@ -115,13 +115,13 @@ from peft import AutoPeftModelForCausalLM
 from transformers import GenerationConfig
 from transformers import AutoTokenizer
 import torch
-tokenizer = AutoTokenizer.from_pretrained("cartesian-alpha-gargee-llama3b")
+tokenizer = AutoTokenizer.from_pretrained("gargee-llama3b")
 
 inputs = tokenizer("""###Instruction: Create a json block for this prompt and show in the following format and  Please do not add any explanation and show
  only json ### Input:show me white Adidas shoes of size 7 above Rs. 15000 ###Response: """, return_tensors="pt").to("cuda")
 
 model = AutoPeftModelForCausalLM.from_pretrained(
-    "cartesian-alpha-gargee-llama3b",
+    "gargee-llama3b",
     low_cpu_mem_usage=True,
     return_dict=True,
     torch_dtype=torch.float16,

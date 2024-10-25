@@ -6,7 +6,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, GPTQConfig, Traini
 from trl import SFTTrainer
 
 import wandb
-wandb.login(key="02c2e65e7a2af9212b6e9f36784011c9617caed8")
+wandb.login(key="your_wandb_key")
 
 MODEL_ID = "openlm-research/open_llama_3b_v2"
 tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
@@ -25,7 +25,7 @@ model = AutoModelForCausalLM.from_pretrained(MODEL_ID,device_map="auto")
 model.half()
 
 custom_model = AutoPeftModelForCausalLM.from_pretrained(
-    "cartesian-alpha-gargee-llama3b",
+    "gargee-llama3b",
     low_cpu_mem_usage=True,
     return_dict=True,
     torch_dtype=torch.float16,
